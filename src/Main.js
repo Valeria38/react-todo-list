@@ -99,11 +99,6 @@ class Main extends React.Component {
   };
 
   showAll = () => {
-    const allTodos = this.state.todos.map(todo => {
-      todo.isVisible = true;
-      return todo;
-    });
-
     this.setState(prevState => {
       const allTodos = this.state.todos.map(todo => {
         todo.isVisible = true;
