@@ -1,33 +1,103 @@
 .App {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-align: center;
 }
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.Form {
+  width: 330px;
+  margin: 0 auto;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.Form__title {
+  color: #ead7d7;
+  font-size: 86px;
+  font-weight: 500;
+  margin: 0px;
+  text-align: center;
+}
+.Form__input {
+  height: 40px;
+  width: 300px;
+  font-size: 22px;
+  font-style: italic;
+  box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
+  border: none;
+  padding: 15px;
+  text-align: center;
+}
+.Form__input::-webkit-input-placeholder {
+  color: #ccc;
+}
+.Form__input::-moz-placeholder {
+  color: #ccc;
+}
+.Task {
+  height: 40px;
+  line-height: 40px;
+  width: 420px;
+  list-style-type: none;
+  color: #4d4d4d;
+  font-size: 22px;
+  padding: 15px;
+  box-shadow: 15px 15px 25px lightgray;
+  background: #ededed;
+  border-bottom: 2px solid #ccc;
+  margin-bottom: 5px;
+  border-radius: 5px;
+}
+.List {
+  width: 450px;
+  margin: 0 auto;
+  text-align: center;
+  background: #fff;
+}
+.Task__toggleState,
+.Task__delete {
+  font-size: 14px;
+  cursor: pointer;
+}
+.Task__delete {
+  font-weight: bold;
+  font-size: 18px;
+  color: rgba(206, 6, 0, 0.3);
+}
+.Task__delete:hover {
+  color: rgb(206, 6, 0);
+}
+.List__footer {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #4d4d4d;
+  display: none;
+}
+.List__footer-flex-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: space-between;
+}
+.List__footer-flex-container > span,
+.List__footer-flex-container > div {
+  flex-basis: 160px;
+}
+.List__footer-flex-container > span:first-child {
+  text-align: left;
+}
+.List__footer-flex-container > span:last-child {
+  text-align: right;
+}
+.List__footer-flex-container span:not(.first) {
+  cursor: pointer;
+}
+.List__footer-flex-container > div > span {
+  margin: 2px;
+}
+.List__footer-flex-container > div > span:hover {
+  border: 1px solid silver;
+}
+.List__show {
+  display: block;
+}
+.active {
+  display: block;
+}
+.hidden {
+  display: none;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
