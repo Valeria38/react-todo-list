@@ -7,19 +7,17 @@ class Task extends React.Component {
     };
 
     return (
-      <div
-        className={this.props.todo.isVisible ? "Task active" : "Task hidden"}
-      >
+      <div className="Task">
         <span style={styles}>{this.props.todo.value}</span> &nbsp;
         <span
           className="Task__toggleState"
-          onClick={() => this.props.handleClick(this.props.index)}
+          onClick={() => this.props.handleClick(this.props.id)}
         >
           {this.props.todo.done ? "Undo" : "Complete"}
         </span>
         <span
           className="Task__delete"
-          onClick={() => this.props.onRemove(this.props.todo, this.props.index)}
+          onClick={() => this.props.onRemove(this.props.todo, this.props.id)}
         >
           &nbsp;&nbsp; X
         </span>

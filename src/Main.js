@@ -6,9 +6,10 @@ class Main extends React.Component {
   state = {
     inputValue: "",
     todos: [
-      { value: "learn react", done: true, isVisible: true },
-      { value: "go for a walk", done: false, isVisible: true }
-    ]
+      { value: "learn react", done: true, id: 1 },
+      { value: "go for a walk", done: false, id: 2 }
+    ],
+    filterBy: ""
   };
 
   handleChange = event => {
@@ -27,7 +28,7 @@ class Main extends React.Component {
     const newTodo = {
       value: this.state.inputValue,
       done: false,
-      isVisible: true
+      id:this.state.todos.length + 1
     };
 
     this.setState(prevState => {
@@ -38,31 +39,34 @@ class Main extends React.Component {
     });
   };
 
-  handleClick = index => {
+  handleClick = id => {
     this.setState(prevState => {
+      const updatedTodos = prevState.todos.map(todo => {
+        if (id === todo.id) {
+          todo.done = !todo.done;
+        }
+        return todo;
+      });
+
       return {
-        todos: prevState.todos.map((todo, i) => {
-          if (index === i) {
-            todo.done = !todo.done;
-          }
-          return todo;
-        })
+        todos: updatedTodos
       };
     });
   };
 
-  onRemove = (todo, index) => {
-    this.setState(prevState => {
-      prevState.todos.splice(prevState.todos.indexOf(todo), 1);
-      return {
-        todos: prevState.todos
-      };
+  onRemove = (todo, id) => {
+    const updatedTodos = [...this.state.todos].filter(todo => {
+      return todo.id !== id;
+    });
+
+    this.setState({
+      todos: updatedTodos
     });
   };
 
   countTodos = () => {
-    const doneTodos = this.state.todos.filter(todo => todo.done);
-    return this.state.todos.length - doneTodos.length;
+    const activeTodos = this.state.todos.filter(todo => !todo.done);
+    return activeTodos.length;
   };
 
   clearCompleted = () => {
@@ -72,45 +76,28 @@ class Main extends React.Component {
     });
   };
 
-  showActiveOrCompleted = isActive => {
-    this.setState(prevState => {
-      const updatedTodos = isActive
-        ? prevState.todos.map(todo => {
-            if (todo.done) {
-              todo.isVisible = false;
-            } else {
-              todo.isVisible = true;
-            }
-            return todo;
-          })
-        : prevState.todos.map(todo => {
-            if (!todo.done) {
-              todo.isVisible = false;
-            } else {
-              todo.isVisible = true;
-            }
-            return todo;
-          });
-
-      return {
-        todos: updatedTodos
-      };
+  setFilterBy = filterBy => {
+    this.setState({
+      filterBy: filterBy
     });
   };
 
-  showAll = () => {
-    this.setState(prevState => {
-      const allTodos = this.state.todos.map(todo => {
-        todo.isVisible = true;
-        return todo;
-      });
-      return {
-        todos: allTodos
-      };
-    });
+  getVisibleTodos = () => {
+    let filteredTodos = this.state.todos;
+
+    if (this.state.filterBy === "active") {
+      filteredTodos = filteredTodos.filter(todo => !todo.done);
+    } else if (this.state.filterBy === "completed") {
+      filteredTodos = filteredTodos.filter(todo => todo.done);
+    }
+
+    return filteredTodos;
   };
 
   render() {
+    let filteredTodos = this.getVisibleTodos();
+    let todosAmount = this.countTodos();
+
     return (
       <div className="Main" onClick={this.onCountTodos}>
         <Form
@@ -119,14 +106,14 @@ class Main extends React.Component {
           handleSubmit={this.handleSubmit}
         />
         <List
-          todos={this.state.todos}
+         setFilterBy={this.setFilterBy}
+         filterBy={this.state.filterBy}
+          todos={filteredTodos}
           handleClick={this.handleClick}
           onRemove={this.onRemove}
-          todosCount={this.countTodos()}
-          showActive={() => this.showActiveOrCompleted(true)}
-          showAll={this.showAll}
-          showCompleted={() => this.showActiveOrCompleted(false)}
+          todosCount={todosAmount}
           clearCompleted={this.clearCompleted}
+          stateTodos={this.state.todos}
         />
       </div>
     );
