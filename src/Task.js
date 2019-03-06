@@ -6,18 +6,20 @@ class Task extends React.Component {
       textDecoration: this.props.todo.done ? "line-through" : "none"
     };
 
+    const { todo, id, onRemove, handleClick } = this.props;
+
     return (
       <div className="Task">
-        <span style={styles}>{this.props.todo.value}</span> &nbsp;
+        <span style={styles}>{todo.value}</span> &nbsp;
         <span
           className="Task__toggleState"
-          onClick={() => this.props.handleClick(this.props.id)}
+          onClick={() => handleClick(id)}
         >
-          {this.props.todo.done ? "Undo" : "Complete"}
+          {todo.done ? "Undo" : "Complete"}
         </span>
         <span
           className="Task__delete"
-          onClick={() => this.props.onRemove(this.props.todo, this.props.id)}
+          onClick={() => onRemove(todo, id)}
         >
           &nbsp;&nbsp; X
         </span>
