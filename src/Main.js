@@ -6,8 +6,8 @@ class Main extends React.Component {
   state = {
     inputValue: "",
     todos: [
-      { value: "learn react", done: true, id: 1 },
-      { value: "go for a walk", done: false, id: 2 }
+      { value: "learn react", done: true, id: Math.random() },
+      { value: "go for a walk", done: false, id: Math.random() }
     ],
     filterBy: ""
   };
@@ -28,7 +28,7 @@ class Main extends React.Component {
     const newTodo = {
       value: this.state.inputValue,
       done: false,
-      id:this.state.todos.length + 1
+      id:Math.random()
     };
 
     this.setState(prevState => {
