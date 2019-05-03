@@ -1,13 +1,7 @@
 import React from "react";
 import Task from "./Task";
-// const randomId = requirse('random-id');
 
 class List extends React.Component {
-
-  state = {
-
-  };
-
   render() {
     return (
       <div className="List">
